@@ -29,7 +29,11 @@ class HtmlWriter
         if ($this->config->get('type') == 'static'
             && rtrim($this->config->get('static.output_path', ''), '/') != 'public/docs'
         ) {
-            $this->assetPathPrefix = './';
+            $this->assetPathPrefix = './assets/';
+
+            if($this->config->get('assets_prefix')){
+               $this->assetPathPrefix = $this->config->get('assets_prefix');
+            }
         }
     }
 
