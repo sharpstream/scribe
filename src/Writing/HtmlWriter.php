@@ -39,6 +39,7 @@ class HtmlWriter
 
     public function generate(array $groupedEndpoints, string $sourceFolder, string $destinationFolder)
     {
+
         $intro = $this->transformMarkdownFileToHTML($sourceFolder . '/intro.md');
         $auth = $this->transformMarkdownFileToHTML($sourceFolder . '/auth.md');
         $headingsBeforeEndpoints = $this->markdownParser->headings;
@@ -97,6 +98,13 @@ class HtmlWriter
                 copy($path, $destination.$fileName);
             }
         }
+
+        //copy the public assets when the assetPathPrefix differs from ./
+        if($this->assetPathPrefix !== './'){
+            Utils::deleteDirectoryAndContents(public_path($this->assetPathPrefix));
+            Utils::copyDirectory($destinationFolder, public_path($this->assetPathPrefix));
+        }
+
     }
 
     protected function transformMarkdownFileToHTML(string $markdownFilePath): string
