@@ -49,7 +49,6 @@ class HtmlWriter
         $headingsAfterEndpoints = $this->markdownParser->headings;
 
         $theme = $this->config->get('theme') ?? 'default';
-
         $output = View::make("scribe::themes.$theme.index", [
             'metadata' => $this->getMetadata(),
             'baseUrl' => $this->baseUrl,
